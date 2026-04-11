@@ -4,6 +4,7 @@
 - Mission-grade Tactical Simulation System
 
 > Terminal ASCII Premium. Fault Injection. Evidence Pack
+> Design Discussion ongoing
 
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
