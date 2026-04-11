@@ -3,7 +3,7 @@
 - Replay & Mission Assurance Simulator
 - Mission-grade Tactical Simulation System
 
-> Terminal ASCII Premium. Fault Injection. Evidence Pack
+> Terminal ASCII Premium. Fault Injection. Evidence Pack <br/>
 > Design Discussion ongoing
 
 ![Node](https://img.shields.io/badge/node-%3E%3D18-green)
