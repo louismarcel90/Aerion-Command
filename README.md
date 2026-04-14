@@ -1,6 +1,6 @@
 # Aerion Command — _Deterministic Tactical Air Combat_
 
-- Replay & Mission Assurance Simulator
+- Replay & Mission Assurance Simulator 🛩️
 - Mission-grade Tactical Simulation System
 
 > Terminal ASCII Premium. Fault Injection. Evidence Pack <br/>
