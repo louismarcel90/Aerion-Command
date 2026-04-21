@@ -11,7 +11,7 @@
 ![CLI](https://img.shields.io/badge/interface-CLI-black)
 
 
-## 🧠 What is Velocity Core  / Why It Exists
+## 🧠 What is Aerion Command  / Why It Exists
 
 ---
 
