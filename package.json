@@ -1,0 +1,53 @@
+{
+  "name": "aerion-command",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deterministic tactical air combat, replay and mission assurance simulator.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "test:watch": "turbo test:watch",
+    "lint": "turbo lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean && node scripts/clean-workspace.mjs",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "simulation",
+    "deterministic",
+    "terminal",
+    "ascii",
+    "replay",
+    "mission-assurance"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.2",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "tsx": "^4.21.0",
+    "turbo": "^2.9.6",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.1",
+    "vitest": "^4.1.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs,cjs,json,md}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint"
+    ]
+  }
+}

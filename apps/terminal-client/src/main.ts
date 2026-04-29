@@ -1,0 +1,1 @@
+console.log("AERION COMMAND — Terminal Client initialized.");

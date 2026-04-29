@@ -1,6 +1,3 @@
----
-
-```md
 # Product Vision
 
 ## Project Name

@@ -1,5 +1,3 @@
----
-
 # Mission Modes
 
 AERION COMMAND supports multiple modes to make the project useful, replayable, demonstrable, and technically credible.
