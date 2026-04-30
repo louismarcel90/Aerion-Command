@@ -15,3 +15,6 @@ export * from "./radar/radar-scan-result.js";
 
 export * from "./rwr/evaluate-rwr-alerts.js";
 export * from "./rwr/rwr-alert.js";
+
+export { evaluateRadarGeometry } from "./radar/radar-geometry.js";
+export type { RadarGeometryResult } from "./radar/radar-geometry.js";
