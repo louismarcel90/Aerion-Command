@@ -151,6 +151,9 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/domain':
+        specifier: workspace:*
+        version: link:../domain
 
   packages/input-system:
     dependencies:
