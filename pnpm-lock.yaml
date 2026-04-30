@@ -232,9 +232,18 @@ importers:
 
   packages/scenario-kit:
     dependencies:
+      '@aerion/assurance':
+        specifier: workspace:*
+        version: link:../assurance
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@aerion/state-store':
+        specifier: workspace:*
+        version: link:../state-store
 
   packages/sensor-engine:
     dependencies:
