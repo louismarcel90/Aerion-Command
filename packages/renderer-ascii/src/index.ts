@@ -18,3 +18,4 @@ export * from "./screen/ascii-screen.js";
 export * from "./screen/render-ascii-mission-screen.js";
 
 export * from "./theme/ascii-symbols.js";
+export * from "./components/hud-degradation.js";

@@ -45,6 +45,9 @@ export const ReasonCode = {
   ThreatRetreatedLowConfidence: "THREAT_RETREATED_LOW_CONFIDENCE",
   ThreatHeldCourseNoTarget: "THREAT_HELD_COURSE_NO_TARGET",
 
+  FaultInjected: "FAULT_INJECTED",
+  DegradedOperationsActive: "DEGRADED_OPERATIONS_ACTIVE",
+
   ReplayVerified: "REPLAY_VERIFIED",
   ReplayDriftDetected: "REPLAY_DRIFT_DETECTED",
   ReplayChecksumMismatch: "REPLAY_CHECKSUM_MISMATCH",

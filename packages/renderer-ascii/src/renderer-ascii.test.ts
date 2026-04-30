@@ -11,6 +11,8 @@ import {
   renderMissionHeaderLines,
   renderTacticalMapLines,
   RenderLayoutMode,
+  isHudPartiallyDegraded,
+  createHudDegradedRendererStateFixture
 } from "./index.js";
 
 describe("render layout", () => {
@@ -36,6 +38,11 @@ describe("renderer components", () => {
 
     expect(lines.some((line) => line.includes("AERION COMMAND"))).toBe(true);
     expect(lines.some((line) => line.includes("STATUS"))).toBe(true);
+    it("renders partial HUD when HUD degradation is active", () => {
+  const state = createRendererStateFixture();
+
+  expect(isHudPartiallyDegraded(state)).toBe(false);
+});
   });
 
   it("renders HUD panel lines", () => {
@@ -89,4 +96,14 @@ describe("mission screen", () => {
     expect(output).toContain("AERION COMMAND");
     expect(screen.lines.length).toBeGreaterThan(0);
   });
+
+  it("detects partial HUD degradation", () => {
+  const state = createHudDegradedRendererStateFixture();
+
+  expect(isHudPartiallyDegraded(state)).toBe(true);
+
+  const lines = renderHudPanelLines(state);
+
+  expect(lines.join("\n")).toContain("PARTIAL HUD ACTIVE");
+});
 });

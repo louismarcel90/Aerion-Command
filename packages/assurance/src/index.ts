@@ -20,3 +20,12 @@ export * from "./report/build-assurance-report.js";
 
 export * from "./safety/evaluate-safety-envelopes.js";
 export * from "./safety/safety-envelope-report.js";
+
+export * from "./degraded-operations/degraded-operation-report.js";
+export * from "./degraded-operations/evaluate-degraded-operation.js";
+
+export * from "./fault-injection/build-fault-injected-event.js";
+export * from "./fault-injection/evaluate-fault-injection.js";
+export * from "./fault-injection/fault-injection-result.js";
+export * from "./fault-injection/fault-injection-scenario.js";
+export * from "./fault-injection/fault-scenario-fixtures.js";

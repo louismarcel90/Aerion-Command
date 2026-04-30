@@ -14,3 +14,4 @@ export * from "./trace/build-input-trace-entry.js";
 export * from "./trace/input-trace-entry.js";
 
 export * from "./validation/input-command-validation.js";
+export * from "./faults/apply-command-path-faults.js";

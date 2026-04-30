@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { MissionCommandType, MissionStatus, ReasonCode } from "@aerion/contracts";
+import { MissionCommandType, MissionStatus, ReasonCode, FaultCode } from "@aerion/contracts";
 import {
   appendCommandToBuffer,
+  applyCommandPathFaults,
   buildInputTraceEntry,
   createCommandBuffer,
   createLiveInputMappingContextFixture,
@@ -231,5 +232,41 @@ describe("input trace", () => {
     expect(trace.tick).toBe(context.issuedAtTick);
     expect(trace.commandId).toBe(context.commandId);
     expect(trace.accepted).toBe(true);
+  });
+});
+
+describe("command path faults", () => {
+  it("drops first command when command dropped fault is active", () => {
+    const context = createLiveInputMappingContextFixture();
+    const result = mapKeyToCommand(TerminalKey.ArrowUp, context);
+
+    if (result.type !== InputMappingResultType.MissionCommand) {
+      throw new Error("Expected mission command.");
+    }
+
+    const faultResult = applyCommandPathFaults(
+      [result.command],
+      [FaultCode.CommandDropped],
+    );
+
+    expect(faultResult.acceptedCommands).toHaveLength(0);
+    expect(faultResult.droppedCommands).toHaveLength(1);
+  });
+
+  it("delays commands when command delayed fault is active", () => {
+    const context = createLiveInputMappingContextFixture();
+    const result = mapKeyToCommand(TerminalKey.ArrowUp, context);
+
+    if (result.type !== InputMappingResultType.MissionCommand) {
+      throw new Error("Expected mission command.");
+    }
+
+    const faultResult = applyCommandPathFaults(
+      [result.command],
+      [FaultCode.CommandDelayed],
+    );
+
+    expect(faultResult.acceptedCommands).toHaveLength(0);
+    expect(faultResult.delayedCommands).toHaveLength(1);
   });
 });

@@ -42,3 +42,13 @@ export const createRendererStateFixture = (): RenderState => {
     evaluateDegradedModePolicy([FaultCode.RadarDegraded]),
   );
 };
+
+export const createHudDegradedRendererStateFixture = (): RenderState => {
+  const state = createInitialStateFixture();
+
+  return projectRenderState(
+    state,
+    [],
+    evaluateDegradedModePolicy([FaultCode.HudPartial]),
+  );
+};
