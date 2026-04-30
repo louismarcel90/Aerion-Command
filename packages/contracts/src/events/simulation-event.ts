@@ -91,7 +91,8 @@ export type WeaponLaunchAuthorizedEvent = BaseSimulationEvent & {
 export type WeaponLaunchRejectedEvent = BaseSimulationEvent & {
   readonly type: typeof SimulationEventType.WeaponLaunchRejected;
   readonly aircraftId: AircraftId;
-  readonly trackId?: TrackId;
+  readonly trackId: TrackId;
+  readonly reasonCode: ReasonCode;
 };
 
 export type MissileLaunchedEvent = BaseSimulationEvent & {
@@ -99,12 +100,15 @@ export type MissileLaunchedEvent = BaseSimulationEvent & {
   readonly missileId: MissileId;
   readonly sourceAircraftId: AircraftId;
   readonly targetTrackId: TrackId;
+  readonly reasonCode: ReasonCode;
+
 };
 
 export type MissileResolvedEvent = BaseSimulationEvent & {
   readonly type: typeof SimulationEventType.MissileResolved;
   readonly missileId: MissileId;
   readonly targetTrackId: TrackId;
+  readonly reasonCode: ReasonCode;
 };
 
 export type CountermeasureDeployedEvent = BaseSimulationEvent & {
