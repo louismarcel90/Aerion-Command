@@ -10,6 +10,8 @@ export const ReasonCode = {
   CommandRejectedReplayModeReadOnly: "COMMAND_REJECTED_REPLAY_MODE_READ_ONLY",
   CommandRejectedActionCooldownActive: "COMMAND_REJECTED_ACTION_COOLDOWN_ACTIVE",
 
+  RadarTrackDetected: "RADAR_TRACK_DETECTED",
+  
   LockAcquired: "LOCK_ACQUIRED",
   LockFailedOutsideSensorArc: "LOCK_FAILED_OUTSIDE_SENSOR_ARC",
   LockFailedConfidenceTooLow: "LOCK_FAILED_CONFIDENCE_TOO_LOW",
