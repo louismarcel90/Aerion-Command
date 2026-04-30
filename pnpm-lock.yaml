@@ -113,6 +113,18 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@aerion/flight-model':
+        specifier: workspace:*
+        version: link:../flight-model
+      '@aerion/sensor-engine':
+        specifier: workspace:*
+        version: link:../sensor-engine
+      '@aerion/state-store':
+        specifier: workspace:*
+        version: link:../state-store
 
   packages/benchmark-kit:
     dependencies:
