@@ -45,7 +45,7 @@ That guarantee is the foundation for replay, verification, debrief, and evidence
 
 ---
 
-## ⚙️ System Architecture
+## 🏗 System Architecture
 
 - Authoritative simulation state is separate from rendered terminal state.
 - Rendering never owns domain logic.
