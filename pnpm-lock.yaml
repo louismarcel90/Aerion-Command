@@ -235,6 +235,15 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@aerion/flight-model':
+        specifier: workspace:*
+        version: link:../flight-model
+      '@aerion/sensor-engine':
+        specifier: workspace:*
+        version: link:../sensor-engine
 
   packages/weapon-engine:
     dependencies:

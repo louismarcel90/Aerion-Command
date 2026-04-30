@@ -27,6 +27,13 @@ export const ReasonCode = {
   MissileMissedTargetEvasiveWindow: "MISSILE_MISSED_TARGET_EVASIVE_WINDOW",
   MissileMissedCountermeasureEffective: "MISSILE_MISSED_COUNTERMEASURE_EFFECTIVE",
 
+  ThreatSelectedTarget: "THREAT_SELECTED_TARGET",
+ThreatMaintainedIntercept: "THREAT_MAINTAINED_INTERCEPT",
+ThreatStartedEvasiveManeuver: "THREAT_STARTED_EVASIVE_MANEUVER",
+ThreatRetreatedLowFuel: "THREAT_RETREATED_LOW_FUEL",
+ThreatRetreatedLowConfidence: "THREAT_RETREATED_LOW_CONFIDENCE",
+ThreatHeldCourseNoTarget: "THREAT_HELD_COURSE_NO_TARGET",
+
   ReplayVerified: "REPLAY_VERIFIED",
   ReplayDriftDetected: "REPLAY_DRIFT_DETECTED",
   ReplayChecksumMismatch: "REPLAY_CHECKSUM_MISMATCH",
