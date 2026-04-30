@@ -217,6 +217,9 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/event-bus':
+        specifier: workspace:*
+        version: link:../event-bus
 
   packages/scenario-kit:
     dependencies:
