@@ -55,7 +55,8 @@ export type MissionPhaseChangedEvent = BaseSimulationEvent & {
 
 export type CommandReceivedEvent = BaseSimulationEvent & {
   readonly type: typeof SimulationEventType.CommandReceived;
-  readonly commandId: CommandId;
+  readonly commandId: string;
+  readonly reasonCode: ReasonCode;
 };
 
 export type CommandRejectedEvent = BaseSimulationEvent & {
@@ -114,11 +115,13 @@ export type CountermeasureDeployedEvent = BaseSimulationEvent & {
 export type FaultInjectedEvent = BaseSimulationEvent & {
   readonly type: typeof SimulationEventType.FaultInjected;
   readonly faultCode: FaultCode;
+  readonly reasonCode: ReasonCode;
 };
 
 export type InvariantViolationDetectedEvent = BaseSimulationEvent & {
   readonly type: typeof SimulationEventType.InvariantViolationDetected;
   readonly invariantName: string;
+  readonly reasonCode: ReasonCode;
 };
 
 export type ReplayVerificationCompletedEvent = BaseSimulationEvent & {
