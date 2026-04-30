@@ -6,7 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@aerion/contracts": "workspace:*"
+    "@aerion/contracts": "workspace:*",
+    "@aerion/domain": "workspace:*",
+    "@aerion/state-store": "workspace:*",
+    "@aerion/assurance": "workspace:*",
+    "@aerion/event-bus": "workspace:*"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

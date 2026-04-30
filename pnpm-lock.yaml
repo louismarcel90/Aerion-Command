@@ -196,9 +196,21 @@ importers:
 
   packages/renderer-ascii:
     dependencies:
+      '@aerion/assurance':
+        specifier: workspace:*
+        version: link:../assurance
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@aerion/event-bus':
+        specifier: workspace:*
+        version: link:../event-bus
+      '@aerion/state-store':
+        specifier: workspace:*
+        version: link:../state-store
 
   packages/replay-engine:
     dependencies:
