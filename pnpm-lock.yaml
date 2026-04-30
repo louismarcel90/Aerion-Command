@@ -166,6 +166,12 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@aerion/state-store':
+        specifier: workspace:*
+        version: link:../state-store
 
   packages/observability:
     dependencies:

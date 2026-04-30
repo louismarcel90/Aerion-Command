@@ -5,6 +5,17 @@ export const ReasonCode = {
   MissionFailedEscortDestroyed: "MISSION_FAILED_ESCORT_DESTROYED",
   MissionFailedFuelExhausted: "MISSION_FAILED_FUEL_EXHAUSTED",
 
+  MissionPhaseAdvancedContact: "MISSION_PHASE_ADVANCED_CONTACT",
+  MissionPhaseAdvancedEngagement: "MISSION_PHASE_ADVANCED_ENGAGEMENT",
+  MissionPhaseAdvancedEgress: "MISSION_PHASE_ADVANCED_EGRESS",
+  MissionObjectiveCompletedIntercept: "MISSION_OBJECTIVE_COMPLETED_INTERCEPT",
+  MissionObjectiveCompletedEscort: "MISSION_OBJECTIVE_COMPLETED_ESCORT",
+  MissionObjectiveCompletedSurvive: "MISSION_OBJECTIVE_COMPLETED_SURVIVE",
+  MissionObjectiveFailedEscortDestroyed: "MISSION_OBJECTIVE_FAILED_ESCORT_DESTROYED",
+  MissionObjectiveFailedPlayerDestroyed: "MISSION_OBJECTIVE_FAILED_PLAYER_DESTROYED",
+  MissionScoreComputed: "MISSION_SCORE_COMPUTED",
+  
+
   CommandAccepted: "COMMAND_ACCEPTED",
   CommandRejectedMissionTerminated: "COMMAND_REJECTED_MISSION_TERMINATED",
   CommandRejectedReplayModeReadOnly: "COMMAND_REJECTED_REPLAY_MODE_READ_ONLY",
@@ -28,11 +39,11 @@ export const ReasonCode = {
   MissileMissedCountermeasureEffective: "MISSILE_MISSED_COUNTERMEASURE_EFFECTIVE",
 
   ThreatSelectedTarget: "THREAT_SELECTED_TARGET",
-ThreatMaintainedIntercept: "THREAT_MAINTAINED_INTERCEPT",
-ThreatStartedEvasiveManeuver: "THREAT_STARTED_EVASIVE_MANEUVER",
-ThreatRetreatedLowFuel: "THREAT_RETREATED_LOW_FUEL",
-ThreatRetreatedLowConfidence: "THREAT_RETREATED_LOW_CONFIDENCE",
-ThreatHeldCourseNoTarget: "THREAT_HELD_COURSE_NO_TARGET",
+  ThreatMaintainedIntercept: "THREAT_MAINTAINED_INTERCEPT",
+  ThreatStartedEvasiveManeuver: "THREAT_STARTED_EVASIVE_MANEUVER",
+  ThreatRetreatedLowFuel: "THREAT_RETREATED_LOW_FUEL",
+  ThreatRetreatedLowConfidence: "THREAT_RETREATED_LOW_CONFIDENCE",
+  ThreatHeldCourseNoTarget: "THREAT_HELD_COURSE_NO_TARGET",
 
   ReplayVerified: "REPLAY_VERIFIED",
   ReplayDriftDetected: "REPLAY_DRIFT_DETECTED",
