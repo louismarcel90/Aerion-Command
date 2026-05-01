@@ -166,6 +166,18 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@aerion/decision-rules':
+        specifier: workspace:*
+        version: link:../decision-rules
+      '@aerion/replay-engine':
+        specifier: workspace:*
+        version: link:../replay-engine
+      '@aerion/scenario-kit':
+        specifier: workspace:*
+        version: link:../scenario-kit
+      '@aerion/state-store':
+        specifier: workspace:*
+        version: link:../state-store
 
   packages/flight-model:
     dependencies:

@@ -6,7 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@aerion/contracts": "workspace:*"
+    "@aerion/contracts": "workspace:*",
+    "@aerion/state-store": "workspace:*",
+    "@aerion/scenario-kit": "workspace:*",
+    "@aerion/replay-engine": "workspace:*",
+    "@aerion/decision-rules": "workspace:*"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
