@@ -19,3 +19,13 @@ export * from "./screen/render-ascii-mission-screen.js";
 
 export * from "./theme/ascii-symbols.js";
 export * from "./components/hud-degradation.js";
+
+export * from "./colors/terminal-color.js";
+
+export * from "./effects/scanline.js";
+
+export * from "./premium/premium-render-options.js";
+export * from "./premium/render-premium-alerts.js";
+export * from "./premium/render-premium-controls.js";
+export * from "./premium/render-premium-screen.js";
+export * from "./premium/render-premium-status-strip.js";

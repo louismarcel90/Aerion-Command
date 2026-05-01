@@ -7,24 +7,24 @@ export const renderDebriefToString = (
 
   const lines: string[] = [];
 
-  lines.push("┌──────────────────────────────────────────────┐");
-  lines.push("│ AERION COMMAND — MISSION DEBRIEF             │");
-  lines.push("├──────────────────────────────────────────────┤");
-  lines.push(`│ STATUS : ${summary.outcomeStatus}`);
-  lines.push(`│ SCORE  : ${summary.score.totalScore}`);
-  lines.push("├──────────────────────────────────────────────┤");
+  lines.push("┌────────────────────────────────────────────────────────────┐");
+  lines.push("│ AERION COMMAND — MISSION DEBRIEF                           │");
+  lines.push("├────────────────────────────────────────────────────────────┤");
+  lines.push(`│ OUTCOME : ${summary.outcomeStatus}`.padEnd(61, " ") + "│");
+  lines.push(`│ SCORE   : ${summary.score.totalScore}`.padEnd(61, " ") + "│");
+  lines.push("├────────────────────────────────────────────────────────────┤");
 
-  lines.push("│ TIMELINE                                     │");
+  summary.sections.forEach((section) => {
+    lines.push(`│ ${section.title}`.padEnd(61, " ") + "│");
 
-  summary.sections.slice(0, 3).forEach((section) => {
-    lines.push(`│ ${section.title}`);
-
-    section.lines.slice(0, 5).forEach((line) => {
-      lines.push(`│   - ${line}`);
+    section.lines.slice(0, 4).forEach((line) => {
+      lines.push(`│   ${line}`.slice(0, 61).padEnd(61, " ") + "│");
     });
+
+    lines.push("├────────────────────────────────────────────────────────────┤");
   });
 
-  lines.push("└──────────────────────────────────────────────┘");
+  lines[lines.length - 1] = "└────────────────────────────────────────────────────────────┘";
 
   return lines.join("\n");
 };

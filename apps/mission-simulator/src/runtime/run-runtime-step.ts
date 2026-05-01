@@ -11,7 +11,7 @@ import { evaluateMissionEngine } from "@aerion/mission-engine";
 import {
   defaultTerminalDimensions,
   projectRenderState,
-  renderAsciiMissionScreen,
+  renderPremiumMissionScreen,
 } from "@aerion/renderer-ascii";
 import { performRadarScan } from "@aerion/sensor-engine";
 import {
@@ -110,7 +110,11 @@ export const runRuntimeStep = (
     assuranceReport.degradedModePolicy,
   );
 
-  const screen = renderAsciiMissionScreen(renderState, defaultTerminalDimensions);
+  const screen = renderPremiumMissionScreen(renderState, defaultTerminalDimensions, {
+    colorEnabled: false,
+    showScanline: true,
+    showControls: true,
+  });
 
   return {
     state: stateAfterMission,
