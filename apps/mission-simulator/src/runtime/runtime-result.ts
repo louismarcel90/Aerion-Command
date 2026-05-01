@@ -7,6 +7,7 @@ import type { AuthoritativeSimulationState } from "@aerion/state-store";
 export type RuntimeStepResult = {
   readonly state: AuthoritativeSimulationState;
   readonly events: readonly SimulationEvent[];
+readonly injectedFaultCodes: readonly import("@aerion/contracts").FaultCode[];
   readonly stepReport: SimulationStepReport;
   readonly assuranceReport: AssuranceReport;
   readonly screen: AsciiScreen;

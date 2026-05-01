@@ -13,9 +13,7 @@ import {
   projectRenderState,
   renderAsciiMissionScreen,
 } from "@aerion/renderer-ascii";
-import {
-  performRadarScan,
-} from "@aerion/sensor-engine";
+import { performRadarScan } from "@aerion/sensor-engine";
 import {
   advanceSimulationKernel,
   scheduleCommand,
@@ -29,10 +27,7 @@ import {
 import { MissionStatus } from "@aerion/contracts";
 import type { RuntimeContext } from "./runtime-context.js";
 import type { RuntimeStepResult } from "./runtime-result.js";
-import {
-  buildRuntimeCommandReceivedEvent,
-  buildRuntimeMissionStartedEvent,
-} from "./build-runtime-events.js";
+import { buildRuntimeEvents } from "../events/build-runtime-events.js";
 
 export const runRuntimeStep = (
   context: RuntimeContext,
@@ -48,69 +43,66 @@ export const runRuntimeStep = (
   const kernelResult = advanceSimulationKernel(scheduledKernelState);
 
   const activeStateBeforeTick =
-  context.state.missionStatus === MissionStatus.Planned
-    ? transitionMissionStatus(context.state, MissionStatus.Active)
-    : context.state;
+    context.state.missionStatus === MissionStatus.Planned
+      ? transitionMissionStatus(context.state, MissionStatus.Active)
+      : context.state;
 
-  const activeState = advanceStateTick(activeStateBeforeTick);
+  const stateBeforeStep = advanceStateTick(activeStateBeforeTick);
 
-  const playerAircraft = activeState.aircraft.find(
+  const playerAircraft = stateBeforeStep.aircraft.find(
     (aircraft) => aircraft.role === "PLAYER",
   );
 
-  const flightState =
+  const stateAfterFlight =
     playerAircraft === undefined
-      ? activeState
+      ? stateBeforeStep
       : replaceAircraft(
-          activeState,
+          stateBeforeStep,
           applyFlightManeuver(
             playerAircraft,
             FlightManeuverCommand.HoldCourse,
           ).aircraft,
         );
 
-  const playerAfterFlight = flightState.aircraft.find(
+  const playerAfterFlight = stateAfterFlight.aircraft.find(
     (aircraft) => aircraft.role === "PLAYER",
   );
 
   const radarResult =
     playerAfterFlight === undefined
-      ? { tracks: flightState.radarTracks, reasonCodes: [] }
+      ? { tracks: stateAfterFlight.radarTracks, reasonCodes: [] }
       : performRadarScan(
           playerAfterFlight,
-          flightState.aircraft,
-          flightState.radarTracks,
+          stateAfterFlight.aircraft,
+          stateAfterFlight.radarTracks,
         );
 
-  const stateAfterRadar = replaceRadarTracks(flightState, radarResult.tracks);
+  const stateAfterRadar = replaceRadarTracks(stateAfterFlight, radarResult.tracks);
 
- const missionResult = evaluateMissionEngine(stateAfterRadar);
-const stateAfterMission = missionResult.state;
+  const missionResult = evaluateMissionEngine(stateAfterRadar);
+  const stateAfterMission = missionResult.state;
 
-  const initialEvents = [
-    buildRuntimeMissionStartedEvent(
-      stateAfterMission.missionId,
-      stateAfterMission.tick,
-    ),
-    ...(context.commands.length > 0
-      ? [
-          buildRuntimeCommandReceivedEvent(
-            stateAfterMission.missionId,
-            stateAfterMission.tick,
-          ),
-        ]
-      : []),
-  ];
-
-  const eventBus = createTypedEventBus(createInMemoryEventSink()).publishMany(
-    initialEvents,
-  );
-
-  const events = eventBus.getSink().readAll();
   const assuranceReport = buildAssuranceReport(
     stateAfterMission,
     context.activeFaultCodes,
   );
+
+  const runtimeEvents = buildRuntimeEvents({
+    tick: stateAfterMission.tick,
+    stateBeforeStep,
+    stateAfterFlight,
+    stateAfterRadar,
+    stateAfterMission,
+    commands: context.commands,
+    injectedFaultCodes: context.injectedFaultCodes,
+    assuranceReport,
+  });
+
+  const eventBus = createTypedEventBus(createInMemoryEventSink()).publishMany(
+    runtimeEvents,
+  );
+
+  const events = eventBus.getSink().readAll();
 
   const renderState = projectRenderState(
     stateAfterMission,
@@ -123,6 +115,7 @@ const stateAfterMission = missionResult.state;
   return {
     state: stateAfterMission,
     events,
+    injectedFaultCodes: context.injectedFaultCodes,
     stepReport: kernelResult.stepReport,
     assuranceReport,
     screen,

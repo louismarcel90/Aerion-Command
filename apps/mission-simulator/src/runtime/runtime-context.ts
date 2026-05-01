@@ -9,4 +9,6 @@ export type RuntimeContext = {
   readonly kernelState: SimulationKernelState;
   readonly commands: readonly MissionCommand[];
   readonly activeFaultCodes: readonly FaultCode[];
+  readonly injectedFaultCodes: readonly FaultCode[];
+
 };

@@ -17,6 +17,7 @@ export type CreateRuntimeContextInput = {
   readonly scenario?: ScenarioDefinition;
   readonly commands?: readonly MissionCommand[];
   readonly activeFaultCodes?: readonly FaultCode[];
+  readonly injectedFaultCodes?: readonly FaultCode[];
 };
 
 export const createRuntimeContext = (
@@ -30,6 +31,7 @@ export const createRuntimeContext = (
     state,
     commands: input.commands ?? [],
     activeFaultCodes: input.activeFaultCodes ?? [],
+    injectedFaultCodes: input.injectedFaultCodes ?? [],
     kernelState: {
       clock: createSimulationClock(state.tick),
       scheduler: createSimulationScheduler(),

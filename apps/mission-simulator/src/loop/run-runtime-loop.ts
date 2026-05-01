@@ -53,6 +53,7 @@ const runLoopRecursive = (
     ...context,
     commands: commandsForTick,
     activeFaultCodes: faultResult.activeFaultCodes,
+    injectedFaultCodes: faultResult.injectedFaultCodes,
   };
 
   const stepResult = runRuntimeStep(stepContext);
@@ -61,11 +62,12 @@ const runLoopRecursive = (
   const nextEvents = [...accumulatedEvents, ...stepResult.events];
 
   const nextContext = advanceRuntimeContext(
-    stepContext,
-    stepResult,
-    [],
-    faultResult.activeFaultCodes,
-  );
+  stepContext,
+  stepResult,
+  [],
+  faultResult.activeFaultCodes,
+  faultResult.injectedFaultCodes,
+);
 
   return runLoopRecursive(
     nextContext,

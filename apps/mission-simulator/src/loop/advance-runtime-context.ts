@@ -12,6 +12,7 @@ export const advanceRuntimeContext = (
   result: RuntimeStepResult,
   commands: readonly MissionCommand[],
   activeFaultCodes: readonly FaultCode[],
+  injectedFaultCodes: readonly FaultCode[],
 ): RuntimeContext => {
   return {
     ...context,
@@ -23,5 +24,6 @@ export const advanceRuntimeContext = (
     },
     commands,
     activeFaultCodes,
+    injectedFaultCodes,
   };
 };

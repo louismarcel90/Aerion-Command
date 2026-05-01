@@ -133,6 +133,11 @@ export type ReplayVerificationCompletedEvent = BaseSimulationEvent & {
   readonly verificationStatus: ReplayVerificationStatus;
 };
 
+export type AircraftStateChangedEvent = BaseSimulationEvent & {
+  readonly type: typeof SimulationEventType.AircraftStateChanged;
+  readonly reasonCode: ReasonCode;
+};
+
 export type SimulationEvent =
   | MissionStatusChangedEvent
   | MissionPhaseChangedEvent
@@ -148,4 +153,5 @@ export type SimulationEvent =
   | CountermeasureDeployedEvent
   | FaultInjectedEvent
   | InvariantViolationDetectedEvent
+  | AircraftStateChangedEvent
   | ReplayVerificationCompletedEvent;
