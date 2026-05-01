@@ -4,10 +4,19 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@aerion/assurance": "workspace:*",
     "@aerion/contracts": "workspace:*",
     "@aerion/domain": "workspace:*",
+    "@aerion/event-bus": "workspace:*",
+    "@aerion/flight-model": "workspace:*",
+    "@aerion/mission-engine": "workspace:*",
+    "@aerion/renderer-ascii": "workspace:*",
+    "@aerion/scenario-kit": "workspace:*",
+    "@aerion/sensor-engine": "workspace:*",
     "@aerion/simulation-kernel": "workspace:*",
-    "@aerion/state-store": "workspace:*"
+    "@aerion/state-store": "workspace:*",
+    "@aerion/threat-engine": "workspace:*",
+    "@aerion/weapon-engine": "workspace:*"
   },
   "scripts": {
     "dev": "tsx src/main.ts",

@@ -56,18 +56,45 @@ importers:
 
   apps/mission-simulator:
     dependencies:
+      '@aerion/assurance':
+        specifier: workspace:*
+        version: link:../../packages/assurance
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
       '@aerion/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@aerion/event-bus':
+        specifier: workspace:*
+        version: link:../../packages/event-bus
+      '@aerion/flight-model':
+        specifier: workspace:*
+        version: link:../../packages/flight-model
+      '@aerion/mission-engine':
+        specifier: workspace:*
+        version: link:../../packages/mission-engine
+      '@aerion/renderer-ascii':
+        specifier: workspace:*
+        version: link:../../packages/renderer-ascii
+      '@aerion/scenario-kit':
+        specifier: workspace:*
+        version: link:../../packages/scenario-kit
+      '@aerion/sensor-engine':
+        specifier: workspace:*
+        version: link:../../packages/sensor-engine
       '@aerion/simulation-kernel':
         specifier: workspace:*
         version: link:../../packages/simulation-kernel
       '@aerion/state-store':
         specifier: workspace:*
         version: link:../../packages/state-store
+      '@aerion/threat-engine':
+        specifier: workspace:*
+        version: link:../../packages/threat-engine
+      '@aerion/weapon-engine':
+        specifier: workspace:*
+        version: link:../../packages/weapon-engine
 
   apps/replay-console:
     dependencies:

@@ -15,3 +15,4 @@ export * from "./state/authoritative-simulation-state.js";
 export * from "./state/initial-simulation-state.js";
 export * from "./reducers/objective-state-reducer.js";
 export * from "./reducers/missile-state-reducer.js";
+export * from "./reducers/radar-track-state-reducer.js";
