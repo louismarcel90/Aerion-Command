@@ -1,26 +1,38 @@
 import { renderAsciiScreenToString } from "@aerion/renderer-ascii";
+
 import { createRuntimeContext } from "./runtime/create-runtime-context.js";
-import { runRuntimeStep } from "./runtime/run-runtime-step.js";
+import { runRuntimeLoop } from "./loop/run-runtime-loop.js";
 import {
   asMissionId,
-  createRuntimeCommandFixture,
+  createRuntimeCommandSequenceFixture,
+  createRuntimeFaultScenarioFixture,
   createRuntimeScenarioFixture,
-} from "./runtime/runtime-fixtures.js";
+} from "./fixtures/runtime-fixtures.js";
 
 const context = createRuntimeContext({
-  missionId: asMissionId("mission-runtime-demo-001"),
+  missionId: asMissionId("mission-runtime-loop-demo-001"),
   scenario: createRuntimeScenarioFixture(),
-  commands: [createRuntimeCommandFixture()],
 });
 
-const result = runRuntimeStep(context);
+const result = runRuntimeLoop(context, {
+  ticksToRun: 4,
+  scheduledCommands: createRuntimeCommandSequenceFixture(),
+  faultScenario: createRuntimeFaultScenarioFixture(),
+});
 
-console.log(renderAsciiScreenToString(result.screen));
+const lastEntry = result.history.entries[result.history.entries.length - 1];
+
+if (lastEntry === undefined) {
+  throw new Error("Runtime loop produced no history entries.");
+}
+
+console.log(renderAsciiScreenToString(lastEntry.screen));
 console.log("");
-console.log("RUNTIME SUMMARY");
-console.log("---------------");
-console.log(`Tick: ${result.state.tick}`);
-console.log(`Mission status: ${result.state.missionStatus}`);
-console.log(`Events: ${result.events.length}`);
-console.log(`Assurance passed: ${result.assuranceReport.passed}`);
-console.log(`Kernel random sample: ${result.stepReport.randomSample.toFixed(6)}`);
+console.log("RUNTIME LOOP SUMMARY");
+console.log("--------------------");
+console.log(`Ticks executed: ${result.history.entries.length}`);
+console.log(`Final tick: ${result.finalContext.state.tick}`);
+console.log(`Mission status: ${result.finalContext.state.missionStatus}`);
+console.log(`Accumulated events: ${result.accumulatedEvents.length}`);
+console.log(`Final assurance passed: ${lastEntry.assuranceReport.passed}`);
+console.log(`Active faults: ${result.finalContext.activeFaultCodes.join(",") || "none"}`);

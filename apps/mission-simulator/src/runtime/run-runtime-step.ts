@@ -21,6 +21,7 @@ import {
   scheduleCommand,
 } from "@aerion/simulation-kernel";
 import {
+  advanceStateTick,
   replaceAircraft,
   replaceRadarTracks,
   transitionMissionStatus,
@@ -46,10 +47,12 @@ export const runRuntimeStep = (
 
   const kernelResult = advanceSimulationKernel(scheduledKernelState);
 
-  const activeState =
-    context.state.missionStatus === MissionStatus.Planned
-      ? transitionMissionStatus(context.state, MissionStatus.Active)
-      : context.state;
+  const activeStateBeforeTick =
+  context.state.missionStatus === MissionStatus.Planned
+    ? transitionMissionStatus(context.state, MissionStatus.Active)
+    : context.state;
+
+  const activeState = advanceStateTick(activeStateBeforeTick);
 
   const playerAircraft = activeState.aircraft.find(
     (aircraft) => aircraft.role === "PLAYER",
