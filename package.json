@@ -15,7 +15,8 @@
     "format:check": "prettier --check .",
     "typecheck": "turbo typecheck",
     "clean": "turbo clean && node scripts/clean-workspace.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "demo": "pnpm --filter @aerion/showcase-runner dev"
   },
   "keywords": [
     "simulation",

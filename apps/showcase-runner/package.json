@@ -1,0 +1,27 @@
+{
+  "name": "@aerion/showcase-runner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@aerion/contracts": "workspace:*",
+    "@aerion/mission-simulator": "workspace:*",
+    "@aerion/renderer-ascii": "workspace:*",
+    "@aerion/scenario-kit": "workspace:*"
+  },
+  "scripts": {
+    "dev": "tsx src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest --passWithNoTests",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "demo": "pnpm --filter @aerion/showcase-runner dev",
+    "demo:mission": "pnpm --filter @aerion/mission-simulator dev",
+    "demo:scenarios": "pnpm --filter @aerion/scenario-runner dev",
+    "demo:evidence": "pnpm --filter @aerion/evidence-exporter dev"
+  }
+}

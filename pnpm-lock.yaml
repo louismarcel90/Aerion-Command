@@ -129,6 +129,21 @@ importers:
         specifier: workspace:*
         version: link:../../packages/scenario-kit
 
+  apps/showcase-runner:
+    dependencies:
+      '@aerion/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@aerion/mission-simulator':
+        specifier: workspace:*
+        version: link:../mission-simulator
+      '@aerion/renderer-ascii':
+        specifier: workspace:*
+        version: link:../../packages/renderer-ascii
+      '@aerion/scenario-kit':
+        specifier: workspace:*
+        version: link:../../packages/scenario-kit
+
   apps/terminal-client:
     dependencies:
       '@aerion/contracts':
