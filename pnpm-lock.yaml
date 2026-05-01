@@ -62,6 +62,9 @@ importers:
       '@aerion/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@aerion/decision-rules':
+        specifier: workspace:*
+        version: link:../../packages/decision-rules
       '@aerion/domain':
         specifier: workspace:*
         version: link:../../packages/domain

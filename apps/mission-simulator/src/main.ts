@@ -16,6 +16,8 @@ import {
   stepRuntimeReplayForward,
 } from "./replay/index.js";
 
+import { buildRuntimeDebrief, renderDebriefToString } from "./debrief/index.js";
+
 const context = createRuntimeContext({
   missionId: asMissionId("mission-runtime-loop-demo-001"),
   scenario: createRuntimeScenarioFixture(),
@@ -46,6 +48,13 @@ const driftedReplay = buildDriftedRuntimeReplay(
   "drifted-digest" as Digest,
   asSimulationTick(0),
 );
+
+const debrief = buildRuntimeDebrief(result.history);
+
+console.log("");
+console.log("DEBRIEF");
+console.log("-------");
+console.log(renderDebriefToString(debrief));
 
 console.log(renderAsciiScreenToString(lastEntry.screen));
 console.log("");

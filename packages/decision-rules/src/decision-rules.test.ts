@@ -57,12 +57,16 @@ describe("missed opportunities", () => {
 
 describe("mission debrief summary", () => {
   it("builds mission debrief summary", () => {
-    const summary = buildMissionDebriefSummary({
-      finalSnapshot: createDebriefSnapshotFixture(),
-      score: createDebriefScoreFixture(),
-      timelineEntries: createDebriefTimelineFixture(),
-      events: createDebriefEventsFixture(),
-    });
+   const summary = buildMissionDebriefSummary({
+  finalSnapshot: createDebriefSnapshotFixture(),
+  score: createDebriefScoreFixture(),
+  timelineEntries: createDebriefTimelineFixture(),
+  events: createDebriefEventsFixture(),
+  missionOutcome: {
+    status: "SUCCEEDED",
+    reasonCodes: [ReasonCode.MissionSucceededObjectiveComplete],
+  },
+});
 
     expect(summary.score.totalScore).toBe(780);
     expect(summary.reasonChain.entries.length).toBeGreaterThan(0);
@@ -71,11 +75,15 @@ describe("mission debrief summary", () => {
 
   it("renders mission debrief summary text", () => {
     const summary = buildMissionDebriefSummary({
-      finalSnapshot: createDebriefSnapshotFixture(),
-      score: createDebriefScoreFixture(),
-      timelineEntries: createDebriefTimelineFixture(),
-      events: createDebriefEventsFixture(),
-    });
+  finalSnapshot: createDebriefSnapshotFixture(),
+  score: createDebriefScoreFixture(),
+  timelineEntries: createDebriefTimelineFixture(),
+  events: createDebriefEventsFixture(),
+  missionOutcome: {
+    status: "SUCCEEDED",
+    reasonCodes: [ReasonCode.MissionSucceededObjectiveComplete],
+  },
+});
 
     const output = renderDebriefSummaryText(summary);
 

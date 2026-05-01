@@ -18,7 +18,8 @@
     "@aerion/threat-engine": "workspace:*",
     "@aerion/weapon-engine": "workspace:*",
     "@aerion/replay-engine": "workspace:*",
-    "@aerion/evidence": "workspace:*"
+    "@aerion/evidence": "workspace:*",
+    "@aerion/decision-rules": "workspace:*"
   },
   "scripts": {
     "dev": "tsx src/main.ts",

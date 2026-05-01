@@ -88,6 +88,10 @@ export const createEvidenceDebriefSummaryFixture = () => {
     score: createDebriefScoreFixture(),
     timelineEntries: createDebriefTimelineFixture(),
     events: createEvidenceEventsFixture(),
+    missionOutcome: {
+      status: "SUCCEEDED",
+      reasonCodes: [ReasonCode.MissionSucceededObjectiveComplete],
+    },
   });
 };
 
