@@ -26,3 +26,11 @@ Each ADR should include:
 - `008-fault-injection-architecture.md`
 - `009-evidence-pack-contract.md`
 - `010-terminal-rendering-boundaries.md`
+
+## ADR Index
+
+- `011 — Tick-based simulation engine`
+- `012 — Authoritative state vs render state`
+- `013 — Event history for replay`
+- `014 — Evidence pack digests`
+- `015 — Controlled fault injection`

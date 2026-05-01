@@ -16,7 +16,10 @@
     "typecheck": "turbo typecheck",
     "clean": "turbo clean && node scripts/clean-workspace.mjs",
     "prepare": "husky",
-    "demo": "pnpm --filter @aerion/showcase-runner dev"
+    "demo": "pnpm --filter @aerion/showcase-runner dev",
+    "demo:mission": "pnpm --filter @aerion/mission-simulator dev",
+    "demo:scenarios": "pnpm --filter @aerion/scenario-kit dev",
+    "demo:evidence": "pnpm --filter @aerion/evidence-exporter dev"
   },
   "keywords": [
     "simulation",

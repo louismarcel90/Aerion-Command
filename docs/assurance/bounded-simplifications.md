@@ -1,54 +1,38 @@
 # Bounded Simplifications
 
-AERION COMMAND is a tactical simulation system, not a certified flight model or real-world weapons simulator.
+AERION COMMAND intentionally simplifies some real-world systems.
 
-This document defines what the system intentionally simplifies.
+## Simplified Flight Model
 
-## Simplified Areas
+The flight model includes speed, heading, altitude and fuel.
 
-### Flight Physics
+It does not claim aerodynamic fidelity.
 
-The flight model uses simplified heading, speed, turn rate, altitude, and fuel behavior.
+## Simplified Radar Model
 
-It does not model full aerodynamics.
+Radar uses range, angle and confidence.
 
-### Sensors
+It does not model full electromagnetic propagation.
 
-The sensor model uses simplified radar detection, track confidence, stale track decay, and RWR alerts.
+## Simplified Weapon Model
 
-It does not model real radar physics.
+Weapon resolution uses confidence, countermeasures and deterministic random samples.
 
-### Weapons
+It does not model real missile physics.
 
-The weapon model uses deterministic or seeded probabilistic resolution depending on scenario rules.
+## Simplified Threat Model
 
-It does not model real missile dynamics.
+Threat behavior is rules-based.
 
-### Threat Behavior
+It is not black-box AI.
 
-Threat behavior uses explainable rules and state machines.
+## Why These Simplifications Are Acceptable
 
-It does not use black-box AI.
+The project optimizes for:
 
-### Geography
-
-Airspace is represented as a simplified tactical grid.
-
-It does not model real terrain or air traffic constraints.
-
-## Why These Simplifications Exist
-
-The goal is not real-world military fidelity.
-
-The goal is to demonstrate:
-
-- deterministic simulation architecture
-- mission assurance design
-- replay verification
-- explainable outcomes
-- fault handling
-- premium terminal interaction
-
-## Interpretation Rule
-
-Simulation outcomes should be interpreted as system outcomes within the defined model, not as real-world tactical predictions.
+- deterministic architecture
+- mission assurance
+- replay
+- evidence
+- explainability
+- terminal-first operator experience

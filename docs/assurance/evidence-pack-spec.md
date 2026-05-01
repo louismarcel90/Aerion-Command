@@ -1,46 +1,37 @@
 # Evidence Pack Specification
 
-The evidence pack is a structured mission artifact.
+## Evidence Pack Fields
 
-It summarizes what happened, why it happened, and whether the mission can be replayed consistently.
-
-## Required Fields
-
-- evidence version
-- scenario id
-- scenario version
-- scenario digest
+- evidencePackId
+- evidenceVersion
+- missionId
+- scenarioId
+- scenarioVersion
+- scenarioDigest
 - seed
-- command sequence digest
-- event log digest
-- final state digest
-- mission outcome
-- outcome reason codes
-- replay verification status
-- generated timestamp
-- bounded simplification reference
+- commandSequenceDigest
+- eventLogDigest
+- finalStateDigest
+- missionOutcome
+- replayVerificationStatus
+- boundedSimplificationReference
+- generatedAtIso
 
-## Purpose
+## Integrity Summary
 
-The evidence pack supports:
+The evidence integrity summary checks:
 
-- mission debrief
-- replay verification
-- debugging
-- showcase storytelling
-- assurance review
+- scenario digest verified
+- command digest verified
+- event log digest verified
+- final state digest present
+- replay verified
 
-## Replay Verification Status
+## Evidence Trust Rule
 
-Valid statuses:
+Evidence is strongest when:
 
-- `VERIFIED`
-- `DRIFT_DETECTED`
-- `CHECKSUM_MISMATCH`
-- `NOT_REPLAYED`
-
-## Evidence Rule
-
-An evidence pack is not a screenshot.
-
-It is a structured, verifiable summary of mission execution.
+- replay is verified
+- digests match
+- final state digest is present
+- scenario version is explicit

@@ -1,56 +1,36 @@
-# Architecture Overview
+# AERION COMMAND — Architecture
 
-AERION COMMAND is organized as a deterministic simulation system with clear separation between contracts, domain model, simulation kernel, tactical engines, state store, replay, assurance, evidence, and terminal rendering.
+AERION COMMAND is a deterministic tactical air combat and mission-assurance simulator.
 
-## Architectural Goals
+It is designed around four architectural commitments:
 
-- deterministic simulation
-- explicit package boundaries
-- authoritative state management
-- pure state transitions
-- replayable event history
-- explainable outcomes
-- degraded operations
-- evidence generation
-- premium terminal rendering
+1. Deterministic simulation
+2. Authoritative state separation
+3. Replayable event history
+4. Evidence-grade mission analysis
 
-## Core Separation
+## Core Principle
 
-The system separates:
+The renderer never owns truth.
 
-- command input
-- simulation execution
-- authoritative state
-- event history
-- rendered projection
-- replay reconstruction
-- evidence export
+The authoritative simulation state is the only source of truth. The ASCII renderer only projects that state into an operator-facing terminal view.
 
-## High-Level Flow
+## Architecture Documents
 
-```txt
-User Input
-   |
-   v
-Input System
-   |
-   v
-Mission Command
-   |
-   v
-Simulation Kernel
-   |
-   v
-Tactical Engines
-   |
-   v
-Authoritative State Store
-   |
-   v
-Event History + Observability
-   |
-   +--> ASCII Renderer
-   |
-   +--> Replay Engine
-   |
-   +--> Evidence Exporter
+- `c4-context.md`
+- `c4-container.md`
+- `c4-component.md`
+- `runtime-flow.md`
+- `deterministic-simulation.md`
+- `replay-and-evidence.md`
+
+## Engineering Documentation
+
+AERION COMMAND includes Staff/Principal-grade engineering documentation:
+
+- `docs/architecture/` — C4, runtime flow, deterministic model, replay/evidence
+- `docs/adr/` — architecture decision records
+- `docs/assurance/` — invariants, failure model, evidence spec, bounded simplifications
+- `docs/operations/` — mission, replay, fault injection and local runbooks
+- `docs/testing/` — deterministic testing and verification strategy
+- `docs/showcase/` — recruiter and Staff-level walkthroughs
