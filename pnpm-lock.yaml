@@ -68,6 +68,9 @@ importers:
       '@aerion/event-bus':
         specifier: workspace:*
         version: link:../../packages/event-bus
+      '@aerion/evidence':
+        specifier: workspace:*
+        version: link:../../packages/evidence
       '@aerion/flight-model':
         specifier: workspace:*
         version: link:../../packages/flight-model
@@ -77,6 +80,9 @@ importers:
       '@aerion/renderer-ascii':
         specifier: workspace:*
         version: link:../../packages/renderer-ascii
+      '@aerion/replay-engine':
+        specifier: workspace:*
+        version: link:../../packages/replay-engine
       '@aerion/scenario-kit':
         specifier: workspace:*
         version: link:../../packages/scenario-kit

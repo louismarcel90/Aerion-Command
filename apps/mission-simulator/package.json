@@ -16,7 +16,9 @@
     "@aerion/simulation-kernel": "workspace:*",
     "@aerion/state-store": "workspace:*",
     "@aerion/threat-engine": "workspace:*",
-    "@aerion/weapon-engine": "workspace:*"
+    "@aerion/weapon-engine": "workspace:*",
+    "@aerion/replay-engine": "workspace:*",
+    "@aerion/evidence": "workspace:*"
   },
   "scripts": {
     "dev": "tsx src/main.ts",
