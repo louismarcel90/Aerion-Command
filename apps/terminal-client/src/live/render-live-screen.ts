@@ -12,58 +12,94 @@ export const renderLiveScreen = (
       aircraft.callsign.toUpperCase() === "P1",
   );
 
-  const playerSpeed = player?.measurements.speedKnots ?? 0;
-  const playerAltitude = player?.position.altitudeFeet ?? 0;
-  const playerHeading = player?.measurements.headingDegrees ?? 0;
-  const playerFuel = player?.measurements.fuelPercentage ?? 0;
+  const speed = Math.round(player?.measurements.speedKnots ?? 0);
+  const altitude = Math.round(player?.position.altitudeFeet ?? 0);
+  const heading = Math.round(player?.measurements.headingDegrees ?? 0);
+  const fuel = Math.round(player?.measurements.fuelPercentage ?? 0);
 
   return [
     "\x1b[2J\x1b[3J\x1b[H",
-    "┌──────────────────────────────────────────────────────────────┐",
-    "│ AERION COMMAND — LIVE TACTICAL COMBAT MODE                   │",
-    "├──────────────────────────────────────────────────────────────┤",
-    `│ TICK   : ${String(result.state.tick).padStart(6, "0")}     STATUS: ${result.state.missionStatus}`.padEnd(63, " ") + "│",
-    `│ ACTION : ${combat.lastAction}`.slice(0, 63).padEnd(63, " ") + "│",
-    "├──────────────────────────────────────────────────────────────┤",
-    "│ AIRSPACE                                                     │",
+    "┌──────────────────────────────────────────────────────────────────────────────┐",
+    "│ AERION COMMAND — PREMIUM TACTICAL HUD                                        │",
+    "├──────────────────────────────────────────────────────────────────────────────┤",
+    "│ AERION COMMAND — TACTICAL AIR COMBAT / MISSION OPS                           │",
+    "│ MISSION: runtime-scenario-001                                                │",
+    `│ STATUS : ${result.state.missionStatus}`.padEnd(79, " ") + "│",
+    `│ PHASE  : ${result.state.missionPhase}`.padEnd(79, " ") + "│",
+    `│ TICK   : ${String(result.state.tick).padStart(6, "0")}`.padEnd(79, " ") + "│",
+    "│ MODE   : LIVE                                                                │",
+    `│ STATUS ${result.state.missionStatus} | PHASE ${result.state.missionPhase} | TICK ${String(
+      result.state.tick,
+    ).padStart(6, "0")} | MODE LIVE`.padEnd(79, " ") + "│",
+    `│ ACTION ${combat.lastAction}`.slice(0, 79).padEnd(79, " ") + "│",
+    `│ SCAN   ${buildScanline(68, result.state.tick)}`.padEnd(79, " ") + "│",
+    "│ DEGRADED: NONE                                                               │",
+    "│ AIRSPACE                                                                     │",
     ...renderAirspace(combat),
-    "├──────────────────────────────────────────────────────────────┤",
-    `│ PLAYER SPD:${String(Math.round(playerSpeed)).padStart(4, "0")} ALT:${String(
-      Math.round(playerAltitude),
-    ).padStart(5, "0")} HDG:${String(Math.round(playerHeading)).padStart(
-      3,
-      "0",
-    )} FUEL:${Math.round(playerFuel)}%`.padEnd(63, " ") + "│",
-    `│ WEAPONS FOX-2 x2  GUN READY  LOCK: ${combat.enemyDestroyed ? "NONE" : "E1"}`.padEnd(63, " ") + "│",
-    `│ ALERTS  ${combat.enemyDestroyed ? "[TARGET DESTROYED]" : "[HOSTILE TRACK E1]"}`.padEnd(63, " ") + "│",
-    "├──────────────────────────────────────────────────────────────┤",
-    "│ CONTROLS ↑/↓ speed | ←/→ turn | W/S altitude | L lock       │",
-    "│          F fire | C flare | ESC quit                         │",
-    "├──────────────────────────────────────────────────────────────┤",
-    `│ EVENTS this tick: ${result.events.length} | total: ${accumulatedEventCount}`.padEnd(63, " ") + "│",
-    "└──────────────────────────────────────────────────────────────┘",
+    "├──────────────────────────────────────────────────────────────────────────────┤",
+    `│ PLAYER   SPD: ${String(speed).padStart(4, "0")}   ALT: ${String(
+      altitude,
+    ).padStart(5, "0")}   HDG: ${String(heading).padStart(3, "0")}   LOCK: ${
+      combat.respawnCountdownTicks > 0 ? "NONE" : "E1"
+    }   FUEL: ${fuel}%`.padEnd(79, " ") + "│",
+    "│ WEAPONS  FOX-2 x2   GUN READY    COUNTERMEASURES: 3                          │",
+    `│ SENSOR   RADAR: TRACKING   TRACKS: ${combat.respawnCountdownTicks > 0 ? 0 : 1}   MISSILES: ${
+      combat.missileActive ? 1 : 0
+    }`.padEnd(79, " ") + "│",
+    `│ ALERTS   ${
+      combat.respawnCountdownTicks > 0 ? "[TARGET DESTROYED]" : "[HOSTILE TRACK E1]"
+    }`.padEnd(79, " ") + "│",
+    "├──────────────────────────────────────────────────────────────────────────────┤",
+    "│ CONTROLS ↑/↓ speed | ←/→ turn | W/S altitude | R radar | L lock | F fire     │",
+    "│          C flare | ESC quit                                                  │",
+    "├──────────────────────────────────────────────────────────────────────────────┤",
+    "│ EVENTS                                                                       │",
+    ...renderEvents(result),
+    "├──────────────────────────────────────────────────────────────────────────────┤",
+    `│ LIVE MODE  Tick: ${result.state.tick} | Events this tick: ${
+      result.events.length
+    } | Events total: ${accumulatedEventCount}`.padEnd(79, " ") + "│",
+    `│ Assurance passed: ${result.assuranceReport.passed}`.padEnd(79, " ") + "│",
+    "└──────────────────────────────────────────────────────────────────────────────┘",
   ].join("\n");
 };
 
 const renderAirspace = (combat: LiveCombatState): readonly string[] => {
-  const width = 60;
+  const width = 76;
   const height = 12;
 
   const grid = Array.from({ length: height }, () =>
     Array.from({ length: width }, () => " "),
   );
 
-  placeText(grid, 42, 8, "^ P1");
-
-  if (!combat.enemyDestroyed) {
-    placeText(grid, combat.enemyX, combat.enemyY, "E1 >>>");
+  if (combat.respawnCountdownTicks === 0) {
+    placeText(grid, combat.enemyX, combat.enemyY, "<<< E1 >>>");
   }
 
+  placeText(grid, combat.playerX, combat.playerY, "^ P1");
+
   if (combat.missileActive) {
-    placeText(grid, combat.missileX, combat.missileY, "M1 ---> *");
+    placeText(grid, combat.missileX, combat.missileY, "* <-M1-> *");
   }
 
   return grid.map((row) => `│ ${row.join("")} │`);
+};
+
+const renderEvents = (result: RuntimeStepResult): readonly string[] => {
+  const visibleEvents = result.events.slice(-4);
+
+  if (visibleEvents.length === 0) {
+    return ["│ [none]                                                                       │"];
+  }
+
+  return visibleEvents.map(
+    (event) =>
+      `│ [${String(event.occurredAtTick).padStart(4, "0")}] ${event.type} / ${
+        event.reasonCode
+      }`
+        .slice(0, 79)
+        .padEnd(79, " ") + "│",
+  );
 };
 
 const placeText = (
@@ -85,4 +121,12 @@ const placeText = (
       row[targetX] = char;
     }
   });
+};
+
+const buildScanline = (width: number, tick: number): string => {
+  const cursor = tick % width;
+
+  return Array.from({ length: width }, (_, index) =>
+    index === cursor ? "◆" : ".",
+  ).join("");
 };
