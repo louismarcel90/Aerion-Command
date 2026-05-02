@@ -113,23 +113,152 @@ aerion-command/
 
 ## 🎮 CLI Experience
 
-At launch:
+At launch, AERION COMMAND starts in **LIVE MISSION MODE** inside a premium ASCII terminal HUD.
+
+### Controls
+
+```txt
+Arrow keys   → speed & heading control
+W / S        → altitude control
+R            → cycle radar target
+L            → attempt target lock
+F            → fire weapon (if authorized)
+C            → countermeasures (flare)
+P            → pause (future extension)
+ESC          → exit live mode
+```
+
+### Gameplay Loop
+1. Detect target via radar
+2. Adjust heading and altitude
+3. Stabilize flight path
+4. Attempt lock
+5. Validate engagement envelope
+6. Fire at the right moment
+7. React to alerts (missile inbound, RWR spike)
 
 ---
 
 ## 🎬 Terminal Preview
 
+At runtime, the terminal renders a tactical HUD:
+
+```txt
+┌──────────────────────────────────────────────────────────────┐
+│ AERION COMMAND — TACTICAL AIR COMBAT / MISSION OPS           │
+├──────────────────────────────────────────────────────────────┤
+│ MISSION: runtime-scenario-001                                │
+│ STATUS : ACTIVE                                              │
+│ PHASE  : INGRESS                                             │
+│ TICK   : 000123                                              │
+│ MODE   : LIVE                                                │
+├──────────────────────────────────────────────────────────────┤
+│ AIRSPACE                                                     │
+│                                                              │
+│             E1 >>>                                           │
+│                         ^ P1                                 │
+│                                                              │
+│                    M1 ---> *                                 │
+│                                                              │
+├──────────────────────────────────────────────────────────────┤
+│ PLAYER   SPD: 720   ALT: 18000   HDG: 034                    │
+│ LOCK     E1                                                 │
+│ SENSOR   RADAR: TRACKING   RWR: SPIKE                        │
+│ ALERTS   [MISSILE INBOUND]                                   │
+├──────────────────────────────────────────────────────────────┤
+│ EVENTS                                                       │
+│ [0121] radar track acquired                                  │
+│ [0122] lock attempt                                          │
+│ [0123] missile launched                                      │
+└──────────────────────────────────────────────────────────────┘
+```
 ---
 
 ## 📊 Example Output
 
+After each mission (demo or replay), the system produces:
+
+### Replay Verification
+
+```txt
+Status           : VERIFIED
+Events           : 5
+Expected digest  : <sha256>
+Actual digest    : <sha256>
+```
+### Mission Debrief
+
+```txt
+OUTCOME : SUCCESS
+SCORE   : 780
+
+Mission Score
+  Objective score: 250
+  Survival score : 300
+  Efficiency     : 230
+
+Outcome Reason Chain
+  MISSION_STARTED
+  TARGET_INTERCEPTED
+  COMMAND_ACCEPTED
+  PHASE_ADVANCED
+```
+### Evidence Summary
+
+```txt
+Mission id       : mission-showcase-001
+Ticks executed   : 6
+Replay status    : VERIFIED
+Assurance passed : true
+```
 ---
 
 ## ⚙️ Engineering Notes
 
+### Determinism First
+
+- Tick-based simulation
+- Seeded randomness
+- Ordered event emission
+- No wall-clock dependency
+
+### Architecture Boundaries
+
+- simulation kernel owns time
+- state-store owns truth
+- renderer owns projection only
+- replay engine reconstructs history
+- evidence system validates integrity
+
+### Explainability
+
+Every critical outcome is reason-coded:
+
+```txt
+LAUNCH_REFUSED_OUTSIDE_ENVELOPE
+LOCK_LOST_SENSOR_CONFIDENCE_DROP
+MISS_TARGET_EVASIVE_WINDOW
+```
+
 ---
 
 ## 👨‍💻 Author
+
+Built as a **Staff / Principal-level engineering portfolio project**.
+
+Focus areas:
+
+- deterministic systems design
+- simulation architecture
+- mission assurance thinking
+- replay & evidence modeling
+- terminal-first product experience
+
+This project is designed to be:
+
+- understandable in 3 minutes (recruiter)
+- defensible in 15 minutes (Staff engineer)
+- respectable under deep review (mission-critical mindset)
 
 ---
 
