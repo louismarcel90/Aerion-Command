@@ -1,7 +1,7 @@
 import type { DegradedModePolicy } from "@aerion/assurance";
 import type { SimulationEvent } from "@aerion/contracts";
 import type { AuthoritativeSimulationState } from "@aerion/state-store";
-import type { RenderState } from "./render-state.js";
+import type { RenderAircraft, RenderState } from "./render-state.js";
 
 export const projectRenderState = (
   state: AuthoritativeSimulationState,
@@ -16,7 +16,7 @@ export const projectRenderState = (
     modeLabel: "LIVE",
     aircraft: state.aircraft.map((aircraft) => ({
       callsign: aircraft.callsign,
-      role: aircraft.role,
+      role: normalizeAircraftRole(`${aircraft.role}`),
       x: aircraft.position.x,
       y: aircraft.position.y,
       altitudeFeet: aircraft.position.altitudeFeet,
@@ -30,7 +30,7 @@ export const projectRenderState = (
       x: track.lastKnownPosition.x,
       y: track.lastKnownPosition.y,
       confidencePercentage: track.confidencePercentage,
-      status: track.status,
+      status: `${track.status}`,
     })),
     missiles: state.missiles.map((missile) => ({
       label: `${missile.missileId}`,
@@ -44,4 +44,24 @@ export const projectRenderState = (
     })),
     degradedModePolicy,
   };
+};
+
+const normalizeAircraftRole = (
+  role: string,
+): RenderAircraft["role"] => {
+  const normalized = role.toUpperCase();
+
+  if (normalized === "PLAYER") {
+    return "PLAYER";
+  }
+
+  if (normalized === "ESCORT") {
+    return "ESCORT";
+  }
+
+  if (normalized === "ENEMY") {
+    return "ENEMY";
+  }
+
+  return "NEUTRAL";
 };

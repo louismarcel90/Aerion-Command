@@ -52,15 +52,28 @@ const placeMissile = (grid: string[][], missile: RenderMissile): void => {
 };
 
 const placeSymbol = (grid: string[][], x: number, y: number, symbol: string): void => {
-  const row = grid[y];
+  const height = grid.length;
+  const width = grid[0]?.length ?? 0;
+
+  if (height === 0 || width === 0) {
+    return;
+  }
+
+  const mappedX = Math.max(
+    0,
+    Math.min(width - 1, Math.round((x / 80) * (width - 1))),
+  );
+
+  const mappedY = Math.max(
+    0,
+    Math.min(height - 1, Math.round((y / 24) * (height - 1))),
+  );
+
+  const row = grid[mappedY];
 
   if (row === undefined) {
     return;
   }
 
-  if (row[x] === undefined) {
-    return;
-  }
-
-  row[x] = symbol;
+  row[mappedX] = symbol;
 };

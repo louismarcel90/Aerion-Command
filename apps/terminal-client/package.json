@@ -7,7 +7,8 @@
     "@aerion/contracts": "workspace:*",
     "@aerion/domain": "workspace:*",
     "@aerion/input-system": "workspace:*",
-    "@aerion/renderer-ascii": "workspace:*"
+    "@aerion/renderer-ascii": "workspace:*",
+    "@aerion/mission-simulator": "workspace:*"
   },
   "scripts": {
     "dev": "tsx src/main.ts",
