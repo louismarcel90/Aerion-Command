@@ -18,3 +18,4 @@ export * from "./runtime/runtime-result.js";
 export * from "./runtime/run-runtime-step.js";
 export type { RuntimeLoopResult } from "./loop/runtime-loop-result.js";
 export type { RuntimeReplayResult } from "./replay/runtime-replay-result.js";
+export * from "./utils/aircraft-role-helpers.js";

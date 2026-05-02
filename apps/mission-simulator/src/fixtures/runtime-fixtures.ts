@@ -14,15 +14,34 @@ import type { FaultInjectionScenario } from "@aerion/assurance";
 import type { ScenarioDefinition } from "@aerion/scenario-kit";
 
 type RuntimeScenarioKind = ScenarioDefinition["metadata"]["kind"];
-const asRuntimeScenarioKind = (value: string): RuntimeScenarioKind =>
-  value as RuntimeScenarioKind;
 
-export const asMissionId = (value: string): MissionId => value as MissionId;
-export const asCommandId = (value: string): CommandId => value as CommandId;
-export const asAircraftId = (value: string): AircraftId => value as AircraftId;
-export const asSimulationTick = (value: number): SimulationTick => value as SimulationTick;
-export const asScenarioId = (value: string): ScenarioId => value as ScenarioId;
-export const asSimulationSeed = (value: number): SimulationSeed => value as SimulationSeed;
+const asRuntimeScenarioKind = (value: string): RuntimeScenarioKind => {
+  return value as RuntimeScenarioKind;
+};
+
+export const asMissionId = (value: string): MissionId => {
+  return value as MissionId;
+};
+
+export const asCommandId = (value: string): CommandId => {
+  return value as CommandId;
+};
+
+export const asAircraftId = (value: string): AircraftId => {
+  return value as AircraftId;
+};
+
+export const asSimulationTick = (value: number): SimulationTick => {
+  return value as SimulationTick;
+};
+
+export const asScenarioId = (value: string): ScenarioId => {
+  return value as ScenarioId;
+};
+
+export const asSimulationSeed = (value: number): SimulationSeed => {
+  return value as SimulationSeed;
+};
 
 export const createRuntimeCommandAtTickFixture = (
   commandId: CommandId,
@@ -34,42 +53,44 @@ export const createRuntimeCommandAtTickFixture = (
     issuedAtTick: tick,
     aircraftId: asAircraftId("aircraft-player-1"),
     type,
-  } as MissionCommand;
-};
-
-export const createRuntimeCommandSequenceFixture = (): readonly MissionCommand[] => {
-  return [
-    createRuntimeCommandAtTickFixture(
-      asCommandId("command-runtime-001"),
-      asSimulationTick(0),
-      MissionCommandType.IncreaseSpeed,
-    ),
-    createRuntimeCommandAtTickFixture(
-      asCommandId("command-runtime-002"),
-      asSimulationTick(1),
-      MissionCommandType.TurnRight,
-    ),
-    createRuntimeCommandAtTickFixture(
-      asCommandId("command-runtime-003"),
-      asSimulationTick(2),
-      MissionCommandType.Climb,
-    ),
-  ];
-};
-
-export const createRuntimeFaultScenarioFixture = (): FaultInjectionScenario => {
-  return {
-    scenarioId: "runtime-fault-demo",
-    label: "Runtime radar degradation demo",
-    scheduledFaults: [
-      {
-        faultCode: FaultCode.RadarDegraded,
-        injectAtTick: asSimulationTick(1),
-        durationTicks: 2,
-      },
-    ],
   };
 };
+
+export const createRuntimeCommandSequenceFixture =
+  (): readonly MissionCommand[] => {
+    return [
+      createRuntimeCommandAtTickFixture(
+        asCommandId("command-runtime-001"),
+        asSimulationTick(0),
+        MissionCommandType.IncreaseSpeed,
+      ),
+      createRuntimeCommandAtTickFixture(
+        asCommandId("command-runtime-002"),
+        asSimulationTick(1),
+        MissionCommandType.TurnRight,
+      ),
+      createRuntimeCommandAtTickFixture(
+        asCommandId("command-runtime-003"),
+        asSimulationTick(2),
+        MissionCommandType.Climb,
+      ),
+    ];
+  };
+
+export const createRuntimeFaultScenarioFixture =
+  (): FaultInjectionScenario => {
+    return {
+      scenarioId: "runtime-fault-demo",
+      label: "Runtime radar degradation demo",
+      scheduledFaults: [
+        {
+          faultCode: FaultCode.RadarDegraded,
+          injectAtTick: asSimulationTick(1),
+          durationTicks: 2,
+        },
+      ],
+    };
+  };
 
 export const createRuntimeScenarioFixture = (): ScenarioDefinition => {
   return {
@@ -82,7 +103,34 @@ export const createRuntimeScenarioFixture = (): ScenarioDefinition => {
       seed: asSimulationSeed(1),
       recommendedDurationTicks: 4,
     },
-    aircraft: [],
+    aircraft: [
+      {
+        aircraftId: asAircraftId("aircraft-player-1"),
+        callsign: "P1",
+        role: "PLAYER",
+        x: 0,
+        y: 0,
+        altitudeFeet: 12000,
+        speedKnots: 420,
+        headingDegrees: 90,
+        fuelPercentage: 100,
+        missileInventory: 4,
+        countermeasureCount: 3,
+      },
+      {
+        aircraftId: asAircraftId("aircraft-enemy-1"),
+        callsign: "BANDIT-1",
+        role: "ENEMY",
+        x: 120,
+        y: 40,
+        altitudeFeet: 11800,
+        speedKnots: 390,
+        headingDegrees: 270,
+        fuelPercentage: 100,
+        missileInventory: 2,
+        countermeasureCount: 2,
+      },
+    ],
     objectives: [],
     faults: [],
     scoringWeights: {

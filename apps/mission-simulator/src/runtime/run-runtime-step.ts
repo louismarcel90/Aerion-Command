@@ -24,10 +24,13 @@ import {
   replaceRadarTracks,
   transitionMissionStatus,
 } from "@aerion/state-store";
-import { MissionStatus } from "@aerion/contracts";
+import { MissionCommandType, MissionStatus } from "@aerion/contracts";
+import type { MissionCommand } from "@aerion/contracts";
+
 import type { RuntimeContext } from "./runtime-context.js";
 import type { RuntimeStepResult } from "./runtime-result.js";
 import { buildRuntimeEvents } from "../events/build-runtime-events.js";
+import { isPlayerAircraft } from "../utils/aircraft-role-helpers.js";
 
 export const runRuntimeStep = (
   context: RuntimeContext,
@@ -49,24 +52,18 @@ export const runRuntimeStep = (
 
   const stateBeforeStep = advanceStateTick(activeStateBeforeTick);
 
-  const playerAircraft = stateBeforeStep.aircraft.find(
-    (aircraft) => aircraft.role === "PLAYER",
-  );
+  const playerAircraft = stateBeforeStep.aircraft.find(isPlayerAircraft);
+  const flightCommand = resolveFlightManeuverCommand(context.commands);
 
   const stateAfterFlight =
     playerAircraft === undefined
       ? stateBeforeStep
       : replaceAircraft(
           stateBeforeStep,
-          applyFlightManeuver(
-            playerAircraft,
-            FlightManeuverCommand.HoldCourse,
-          ).aircraft,
+          applyFlightManeuver(playerAircraft, flightCommand).aircraft,
         );
 
-  const playerAfterFlight = stateAfterFlight.aircraft.find(
-    (aircraft) => aircraft.role === "PLAYER",
-  );
+  const playerAfterFlight = stateAfterFlight.aircraft.find(isPlayerAircraft);
 
   const radarResult =
     playerAfterFlight === undefined
@@ -77,7 +74,10 @@ export const runRuntimeStep = (
           stateAfterFlight.radarTracks,
         );
 
-  const stateAfterRadar = replaceRadarTracks(stateAfterFlight, radarResult.tracks);
+  const stateAfterRadar = replaceRadarTracks(
+    stateAfterFlight,
+    radarResult.tracks,
+  );
 
   const missionResult = evaluateMissionEngine(stateAfterRadar);
   const stateAfterMission = missionResult.state;
@@ -98,9 +98,9 @@ export const runRuntimeStep = (
     assuranceReport,
   });
 
-  const eventBus = createTypedEventBus(createInMemoryEventSink()).publishMany(
-    runtimeEvents,
-  );
+  const eventBus = createTypedEventBus(
+    createInMemoryEventSink(),
+  ).publishMany(runtimeEvents);
 
   const events = eventBus.getSink().readAll();
 
@@ -110,11 +110,15 @@ export const runRuntimeStep = (
     assuranceReport.degradedModePolicy,
   );
 
-  const screen = renderPremiumMissionScreen(renderState, defaultTerminalDimensions, {
-    colorEnabled: false,
-    showScanline: true,
-    showControls: true,
-  });
+  const screen = renderPremiumMissionScreen(
+    renderState,
+    defaultTerminalDimensions,
+    {
+      colorEnabled: false,
+      showScanline: true,
+      showControls: true,
+    },
+  );
 
   return {
     state: stateAfterMission,
@@ -124,4 +128,37 @@ export const runRuntimeStep = (
     assuranceReport,
     screen,
   };
+};
+
+const resolveFlightManeuverCommand = (
+  commands: readonly MissionCommand[],
+): FlightManeuverCommand => {
+  const latestCommand = commands[commands.length - 1];
+
+  if (latestCommand === undefined) {
+    return FlightManeuverCommand.HoldCourse;
+  }
+
+  switch (latestCommand.type) {
+    case MissionCommandType.IncreaseSpeed:
+      return FlightManeuverCommand.IncreaseSpeed;
+
+    case MissionCommandType.DecreaseSpeed:
+      return FlightManeuverCommand.DecreaseSpeed;
+
+    case MissionCommandType.TurnLeft:
+      return FlightManeuverCommand.TurnLeft;
+
+    case MissionCommandType.TurnRight:
+      return FlightManeuverCommand.TurnRight;
+
+    case MissionCommandType.Climb:
+      return FlightManeuverCommand.Climb;
+
+    case MissionCommandType.Descend:
+      return FlightManeuverCommand.Descend;
+
+    default:
+      return FlightManeuverCommand.HoldCourse;
+  }
 };
